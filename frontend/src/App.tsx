@@ -9,6 +9,7 @@ import {
   analyzeIncident,
   type IncidentResponse,
 } from './services/incidentApi'
+import { getEventColor } from './utils/eventColors'
 
 type DisplayRecord = Record<string, unknown>
 
@@ -22,12 +23,6 @@ function formatEventKind(kind: string) {
   return kind
     .replaceAll('_', ' ')
     .replace(/\b\w/g, (letter) => letter.toUpperCase())
-}
-
-function getEventColor(kind: string) {
-  if (kind.includes('FAULT')) return '#ef5350'
-  if (kind.includes('RECOVERY')) return '#f5ad42'
-  return '#43c8e8'
 }
 
 function getStateColor(state: string) {

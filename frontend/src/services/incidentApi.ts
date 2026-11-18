@@ -125,13 +125,20 @@ export async function analyzeIncident(
     },
   }
 
-  const response = await fetch('/api/incidents/analyze', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const apiBaseUrl = (
+    import.meta.env.VITE_API_BASE_URL ?? ''
+  ).replace(/\/$/, '')
+
+  const response = await fetch(
+    `${apiBaseUrl}/api/incidents/analyze`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
     },
-    body: JSON.stringify(requestBody),
-  })
+  )
 
   if (!response.ok) {
     const errorMessage = await response.text()
@@ -142,4 +149,5 @@ export async function analyzeIncident(
 
   return (await response.json()) as IncidentResponse
 }
+
 
